@@ -1,4 +1,4 @@
-# Mobile-CMUNeXt: Fast Semantic Segmentation Diagnosis of Medical Images
+# Mobile-CMUNeXt: Fast Semantic Segmentation for Diagnosis of Medical Images
 
 > [!IMPORTANT]
 > This work is still under development
