@@ -11,12 +11,4 @@
 **/saved_models/
 **/.ruff_cache
 **/logs/
-*.aux
-*.fdb_latexmk
-*.fls
-docs/publication/*.log
-docs/publication/*.synctex.gz
-docs/publication/*.pdf
 !/src/test/*.pth
-*.bbl
-*.blg
