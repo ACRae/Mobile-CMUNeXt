@@ -1,0 +1,62 @@
+\newcommand{\firstgroup}{3}  % First group column count (Networks, Params, MACS)
+\newcommand{\metricgroup}{2}  % Columns per metric group (IoU, F1, AAC)
+\newcommand{\totmetrics}{6}  % Total metrics columns (3 groups × metrics)
+\newcommand{\metricstart}{4} % column where metrics start
+\newcommand{\metricsend}{9} % column where metrics end
+
+\begin{tabular}{ccc|cc|cc|cc}
+\toprule[1.1pt]
+
+
+\multirow{2}{*}[-0.5em]{\centering Network} &  
+\multirow{2}{*}[-0.5em]{\centering MACS (G)$\downarrow$} &
+\multirow{2}{*}[-0.5em]{\centering Params\ (M)$\downarrow$} &
+\multicolumn{\metricgroup}{c|}{BUSI}  & 
+\multicolumn{\metricgroup}{c|}{FIVES} & 
+\multicolumn{\metricgroup}{c}{ISIC2016}
+\\ 
+
+\cmidrule{\metricstart-\metricsend}
+
+\multicolumn{\firstgroup}{c|}{} % empty fist 3 columns 
+& F1$\uparrow$ & IoU$\uparrow$
+& F1$\uparrow$ & IoU$\uparrow$
+& F1$\uparrow$ & IoU$\uparrow$
+\\ 
+
+\midrule[0.7pt]
+
+CMUNeXt-L
+& 17.18 & 8.29 	% MACS, PARAMS
+& 78.63 & 65.83 	% BUSI (F1, iou)
+& 85.59 & 74.82 	% FIVES2022 (F1, iou)
+& 91.83 & 85.03 	% ISIC2016 (F1, iou)
+\\
+
+CMUNeXt
+& 7.42 & 3.15 	% MACS, PARAMS
+& 78.94 & 65.84 	% BUSI (F1, iou)
+& 81.46 & 68.77 	% FIVES2022 (F1, iou)
+& 91.79 & 85.0 	% ISIC2016 (F1, iou)
+\\
+
+CMUNeXt-S
+& 1.09 & 0.42 	% MACS, PARAMS
+& 77.39 & 64.12 	% BUSI (F1, iou)
+& 85.85 & 75.24 	% FIVES2022 (F1, iou)
+& 91.71 & 84.86 	% ISIC2016 (F1, iou)
+\\
+
+\midrule[0.7pt]
+
+CMUNeXt-XXS
+& 0.47 & 0.04 	% MACS, PARAMS
+& 77.91 & 64.48 	% BUSI (F1, iou)
+& 78.62 & 64.84 	% FIVES2022 (F1, iou)
+& 91.61 & 84.7 	% ISIC2016 (F1, iou)
+\\
+
+
+
+\bottomrule[1.1pt]
+\end{tabular}

@@ -1,0 +1,102 @@
+\begin{tabular}{>{\centering\arraybackslash}m{3cm}ccc|ccc|cc|cc|cc}
+\toprule[1.1pt]
+\multirow{2}{*}[-0.5em]{\centering Network} & 
+\multirow{2}{*}[-0.5em]{\centering Params (M)$\downarrow$} & 
+\multirow{2}{*}[-0.5em]{\centering MACs (G)$\downarrow$} &
+\multirow{2}{*}[-0.5em]{\centering Activation} &
+\multicolumn{3}{c|}{Quantization} &
+\multicolumn{2}{c|}{ISIC2016} & 
+\multicolumn{2}{c|}{BUSI} & 
+\multicolumn{2}{c}{FIVES} \\
+
+\cmidrule{5-7} \cmidrule{8-13}
+\multicolumn{4}{c|}{} & 
+W & 
+B & 
+A & 
+IoU$\uparrow$ & 
+F1$\uparrow$ & 
+IoU$\uparrow$ & 
+F1$\uparrow$ & 
+IoU$\uparrow$ & 
+F1$\uparrow$ \\ 
+\midrule[0.7pt]
+
+
+U-Net 
+& 34.52 & 65.52 & RELU
+& - & - & -  
+& 83.00 & 90.59     
+& 61.10 & 74.89     
+& 67.00 & 80.18 \\  
+
+\midrule[0.7pt]
+
+CMUNeXt-S
+& 0.42 & 1.09 & GELU
+& - & - & -
+& 84.87 & 91.71 
+& 64.12 & 77.39
+& 75.24 & 85.85 \\
+
+\midrule[0.7pt]
+
+CMUNeXt-S + Kernels 3
+& 0.42 & 1.08 & GELU
+& - & - & -  
+& 84.11 & 91.24 
+& 59.40 & 73.43
+& 72.73 & 84.20 \\ 
+
+\midrule[0.7pt]
+
+CMUNeXt-S + Add
+& 0.32 & 0.79 & GELU
+& - & - & -  
+& 84.54 & 91.50 
+& 63.81 & 77.08
+& 64.81 & 78.60 \\ 
+
+\midrule[0.7pt]
+
+\textbf{CMUNeXt-XXS + Add}
+& \textbf{0.04} & \underline{0.47} & Hardswish
+& - & - & -  
+& 84.94 & 91.75 
+& 65.81 & 78.93
+& 75.00 & 85.71 \\ 
+
+\textbf{CMUNeXt-XXS + Add}  
+& \textbf{0.04} & \underline{0.47} & RELU
+& - & - & - 
+& 85.46 & 92.08 
+& 64.74 & 78.14 
+& 75.40 & 85.96 \\ 
+
+\textbf{CMUNeXt-XXS + Add}  
+& \textbf{0.04} & \underline{0.47} & LeakyRELU
+& - & - & - 
+& 84.56 & 91.56 
+& 65.11 & 78.26
+& 77.12 & 87.70 \\ 
+
+
+\midrule[0.7pt]
+
+\textbf{CMUNeXt-XXS + Add + Quant}  
+& \textbf{0.04} & \underline{0.47} & Hardswish
+& 8 & 16 & 8 
+& 84.45 & 91.43 
+& 65.24 & 78.84 
+& 77.44 & 87.26 \\ 
+
+\textbf{CMUNeXt-XXS + Add + Quant}  
+& \textbf{0.04} & \underline{0.47} & RELU
+& 8 & 16 & 8
+& 84.01 & 90.99 
+& 65.21 & 76.49 
+& 76.91 & 86.88 \\ 
+
+
+\bottomrule[1.1pt]
+\end{tabular}
