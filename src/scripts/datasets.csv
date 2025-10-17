@@ -1,0 +1,4 @@
+dataset_name,img_ext,mask_ext
+ISIC2016,.jpg,.png
+FIVES2022,.png,.png
+BUSI,.png,.png

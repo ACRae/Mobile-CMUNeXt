@@ -1,0 +1,2 @@
+model_name,arguments
+Mobile-CMUNeXt-Quant-RELU-BN-ACT,--dims 8 8 16 16 24 --batch_size 4 --custom_name __Mobile-CMUNeXt__Quant_W8__FinalV2__

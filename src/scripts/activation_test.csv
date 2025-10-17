@@ -1,0 +1,4 @@
+model_name,arguments
+CMUNeXt-L-LeakyRELU,
+CMUNeXt-L-RELU,
+CMUNeXt-L-Hardswish,

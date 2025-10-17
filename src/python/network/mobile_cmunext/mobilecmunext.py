@@ -1,0 +1,197 @@
+from torch import nn
+
+
+class Residual(nn.Module):
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def forward(self, x):
+        return self.fn(x) + x
+
+
+class MobileCMUNeXtBlock(nn.Module):
+    def __init__(self, ch_in, ch_out, depth=1, k=3, act: nn.Module = nn.Hardswish):
+        super().__init__()
+        self.block = nn.Sequential(
+            *[
+                nn.Sequential(
+                    # First depthwise convolution
+                    Residual(
+                        nn.Sequential(
+                            nn.Conv2d(
+                                ch_in,
+                                ch_in,
+                                kernel_size=(k, k),
+                                groups=ch_in,
+                                padding=(k // 2, k // 2),
+                            ),
+                            act(),
+                            nn.BatchNorm2d(ch_in),
+                        )
+                    ),
+                    # Second depthwise convolution
+                    Residual(
+                        nn.Sequential(
+                            nn.Conv2d(
+                                ch_in,
+                                ch_in,
+                                kernel_size=(k, k),
+                                groups=ch_in,
+                                padding=(k // 2, k // 2),
+                            ),
+                            act(),
+                            nn.BatchNorm2d(ch_in),
+                        )
+                    ),
+                    nn.Conv2d(ch_in, ch_in * 4, kernel_size=(1, 1)),
+                    act(),
+                    nn.BatchNorm2d(ch_in * 4),
+                    nn.Conv2d(ch_in * 4, ch_in, kernel_size=(1, 1)),
+                    act(),
+                    nn.BatchNorm2d(ch_in),
+                )
+                for _ in range(depth)
+            ]
+        )
+        self.up = ConvBlock(ch_in, ch_out, act=act)
+
+    def forward(self, x):
+        x = self.block(x)
+        x = self.up(x)
+        return x
+
+
+class ConvBlock(nn.Module):
+    def __init__(self, ch_in, ch_out, act: nn.Module = nn.Hardswish):
+        super().__init__()
+        self.conv = nn.Sequential(
+            nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
+            nn.BatchNorm2d(ch_out),
+            act(inplace=True),
+        )
+
+    def forward(self, x):
+        x = self.conv(x)
+        return x
+
+
+class UpConv(nn.Module):
+    def __init__(self, ch_in, ch_out, up_mode, act: nn.Module = nn.Hardswish):
+        super().__init__()
+        self.up = nn.Sequential(
+            nn.Upsample(scale_factor=2, mode=up_mode),
+            nn.Conv2d(ch_in, ch_out, kernel_size=3, stride=1, padding=1, bias=True),
+            nn.BatchNorm2d(ch_out),
+            act(inplace=True),
+        )
+
+    def forward(self, x):
+        x = self.up(x)
+        return x
+
+
+class FusionConv(nn.Module):
+    def __init__(self, ch_in, ch_out, act: nn.Module = nn.Hardswish):
+        super().__init__()
+        self.conv = nn.Sequential(
+            # nn.Conv2d(ch_in, ch_in, kernel_size=3, stride=1, padding=1, groups=2, bias=True),
+            nn.Conv2d(ch_in, ch_in, kernel_size=3, stride=1, padding=1, groups=1, bias=True),
+            act(),
+            nn.BatchNorm2d(ch_in),
+            nn.Conv2d(ch_in, ch_out * 4, kernel_size=(1, 1)),
+            act(),
+            nn.BatchNorm2d(ch_out * 4),
+            nn.Conv2d(ch_out * 4, ch_out, kernel_size=(1, 1)),
+            act(),
+            nn.BatchNorm2d(ch_out),
+        )
+
+    def forward(self, x):
+        x = self.conv(x)
+        return x
+
+
+class MobileCMUNeXt(nn.Module):
+    def __init__(
+        self,
+        input_channel=3,
+        num_classes=1,
+        dims=[16, 32, 128, 160, 256],
+        depths=[1, 1, 1, 3, 1],
+        kernels=[3, 3, 7, 7, 7],
+        upsampling_mode="nearest",
+        act: nn.Module = nn.Hardswish,
+    ):
+        """
+        Args:
+            input_channel : input channel.
+            num_classes: output channel.
+            dims: length of channels
+            depths: length of cmunext blocks
+            kernels: kernal size of cmunext blocks
+
+        Improvements Done:
+            * Altered Concat to sum and altered shapes
+            * Changed Activation Function to Hardswish
+            * Added a second depthwise convolution
+        """
+        super().__init__()
+        # Encoder
+        self.Maxpool = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.stem = ConvBlock(ch_in=input_channel, ch_out=dims[0], act=act)
+        self.encoder1 = MobileCMUNeXtBlock(
+            ch_in=dims[0], ch_out=dims[0], depth=depths[0], k=kernels[0], act=act
+        )
+        self.encoder2 = MobileCMUNeXtBlock(
+            ch_in=dims[0], ch_out=dims[1], depth=depths[1], k=kernels[1], act=act
+        )
+        self.encoder3 = MobileCMUNeXtBlock(
+            ch_in=dims[1], ch_out=dims[2], depth=depths[2], k=kernels[2], act=act
+        )
+        self.encoder4 = MobileCMUNeXtBlock(
+            ch_in=dims[2], ch_out=dims[3], depth=depths[3], k=kernels[3], act=act
+        )
+        self.encoder5 = MobileCMUNeXtBlock(
+            ch_in=dims[3], ch_out=dims[4], depth=depths[4], k=kernels[4], act=act
+        )
+        # Decoder
+        self.Up5 = UpConv(ch_in=dims[4], ch_out=dims[3], up_mode=upsampling_mode, act=act)
+        self.Up_conv5 = FusionConv(ch_in=dims[3], ch_out=dims[3], act=act)
+        self.Up4 = UpConv(ch_in=dims[3], ch_out=dims[2], up_mode=upsampling_mode, act=act)
+        self.Up_conv4 = FusionConv(ch_in=dims[2], ch_out=dims[2], act=act)
+        self.Up3 = UpConv(ch_in=dims[2], ch_out=dims[1], up_mode=upsampling_mode, act=act)
+        self.Up_conv3 = FusionConv(ch_in=dims[1], ch_out=dims[1], act=act)
+        self.Up2 = UpConv(ch_in=dims[1], ch_out=dims[0], up_mode=upsampling_mode, act=act)
+        self.Up_conv2 = FusionConv(ch_in=dims[0], ch_out=dims[0], act=act)
+        self.Conv_1x1 = nn.Conv2d(dims[0], num_classes, kernel_size=1, stride=1, padding=0)
+
+    def forward(self, x):
+        x = self.stem(x)
+        x1 = self.encoder1(x)
+        x2 = self.Maxpool(x1)
+        x2 = self.encoder2(x2)
+        x3 = self.Maxpool(x2)
+        x3 = self.encoder3(x3)
+        x4 = self.Maxpool(x3)
+        x4 = self.encoder4(x4)
+        x5 = self.Maxpool(x4)
+        x5 = self.encoder5(x5)
+
+        d5 = self.Up5(x5)
+        d5 = x4 + d5
+        d5 = self.Up_conv5(d5)
+
+        d4 = self.Up4(d5)
+        d4 = x3 + d4
+        d4 = self.Up_conv4(d4)
+
+        d3 = self.Up3(d4)
+        d3 = x2 + d3
+        d3 = self.Up_conv3(d3)
+
+        d2 = self.Up2(d3)
+        d2 = x1 + d2
+        d2 = self.Up_conv2(d2)
+        d1 = self.Conv_1x1(d2)
+        return d1

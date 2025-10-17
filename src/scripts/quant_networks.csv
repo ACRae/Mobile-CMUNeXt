@@ -1,0 +1,10 @@
+model_name,arguments
+Mobile-CMUNeXt-Quant-RELU-BN-ACT,--batch_size 4 --custom_name Mobile-CMUNeXt-Quant-RELU-BN-ACT-W8
+Mobile-CMUNeXt-Quant-RELU-BN-ACT,--batch_size 4 --weight_bit_width 4 --custom_name Mobile-CMUNeXt-Quant-RELU-BN-ACT-W4
+Mobile-CMUNeXt-Quant-RELU-BN-ACT,--batch_size 4 --weight_bit_width 2 --custom_name Mobile-CMUNeXt-Quant-RELU-BN-ACT-W2
+Mobile-CMUNeXt-Quant-RELU,--batch_size 4 --custom_name Mobile-CMUNeXt-Quant-RELU-W8
+Mobile-CMUNeXt-Quant-RELU,--batch_size 4 --weight_bit_width 4 --custom_name Mobile-CMUNeXt-Quant-RELU-W4
+Mobile-CMUNeXt-Quant-RELU,--batch_size 4 --weight_bit_width 2 --custom_name Mobile-CMUNeXt-Quant-RELU-W2
+Mobile-CMUNeXt-Quant-Hardswish,--batch_size 4 --custom_name Mobile-CMUNeXt-Quant-Hardswish-W8
+Mobile-CMUNeXt-Quant-Hardswish,--batch_size 4 --weight_bit_width 4 --custom_name Mobile-CMUNeXt-Quant-Hardswish-W4
+Mobile-CMUNeXt-Quant-Hardswish,--batch_size 4 --weight_bit_width 2 --custom_name Mobile-CMUNeXt-Quant-Hardswish-W2

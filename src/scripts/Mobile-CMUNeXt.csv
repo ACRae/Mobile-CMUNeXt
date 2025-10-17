@@ -1,0 +1,2 @@
+model_name,arguments
+Mobile-CMUNeXt-RELU-BN-ACT,--dims 8 8 16 16 24 --custom_name __Mobile-CMUNeXt__Final__

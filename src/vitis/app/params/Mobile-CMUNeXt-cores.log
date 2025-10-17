@@ -1,0 +1,81 @@
+# Stem
+[DEBUG] LAYER_C3D: 256x256x3 -> 256x256x8; layerid:0; upsample:0; first:1; skip_con:0
+
+# Encoder 1
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:0; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:1; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_PW: 256x256x8 -> 256x256x32; layerid:0; last_layer:0
+[DEBUG] LAYER_PW: 256x256x32 -> 256x256x8; layerid:1; last_layer:0
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:2; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:3; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_PW: 256x256x8 -> 256x256x32; layerid:2; last_layer:0
+[DEBUG] LAYER_PW: 256x256x32 -> 256x256x8; layerid:3; last_layer:0
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:4; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_DW: 256x256x8 -> 256x256x8; layerid:5; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_PW: 256x256x8 -> 256x256x32; layerid:4; last_layer:0
+[DEBUG] LAYER_PW: 256x256x32 -> 256x256x8; layerid:5; last_layer:0
+[DEBUG] LAYER_C3D: 256x256x8 -> 256x256x8; layerid:1; upsample:0; first:0; skip_con:0
+
+# Encoder 2
+[DEBUG] LAYER_DW: 256x256x8 -> 128x128x8; layerid:6; maxpool:1; kernel:3; pad:1
+[DEBUG] LAYER_DW: 128x128x8 -> 128x128x8; layerid:7; maxpool:0; kernel:3; pad:1
+[DEBUG] LAYER_PW: 128x128x8 -> 128x128x32; layerid:6; last_layer:0
+[DEBUG] LAYER_PW: 128x128x32 -> 128x128x8; layerid:7; last_layer:0
+[DEBUG] LAYER_C3D: 128x128x8 -> 128x128x8; layerid:2; upsample:0; first:0; skip_con:0
+
+# Encoder 3
+[DEBUG] LAYER_DW: 128x128x8 -> 64x64x8; layerid:8; maxpool:1; kernel:7; pad:3
+[DEBUG] LAYER_DW: 64x64x8 -> 64x64x8; layerid:9; maxpool:0; kernel:7; pad:3
+[DEBUG] LAYER_PW: 64x64x8 -> 64x64x32; layerid:8; last_layer:0
+[DEBUG] LAYER_PW: 64x64x32 -> 64x64x8; layerid:9; last_layer:0
+[DEBUG] LAYER_C3D: 64x64x8 -> 64x64x16; layerid:3; upsample:0; first:0; skip_con:0
+
+# Encoder 4
+[DEBUG] LAYER_DW: 64x64x16 -> 32x32x16; layerid:10; maxpool:1; kernel:7; pad:3
+[DEBUG] LAYER_DW: 32x32x16 -> 32x32x16; layerid:11; maxpool:0; kernel:7; pad:3
+[DEBUG] LAYER_PW: 32x32x16 -> 32x32x64; layerid:10; last_layer:0
+[DEBUG] LAYER_PW: 32x32x64 -> 32x32x16; layerid:11; last_layer:0
+[DEBUG] LAYER_C3D: 32x32x16 -> 32x32x16; layerid:4; upsample:0; first:0; skip_con:0
+
+# Encoder 5 (Bottleneck)
+[DEBUG] LAYER_DW: 32x32x16 -> 16x16x16; layerid:12; maxpool:1; kernel:9; pad:4
+[DEBUG] LAYER_DW: 16x16x16 -> 16x16x16; layerid:13; maxpool:0; kernel:9; pad:4
+[DEBUG] LAYER_PW: 16x16x16 -> 16x16x64; layerid:12; last_layer:0
+[DEBUG] LAYER_PW: 16x16x64 -> 16x16x16; layerid:13; last_layer:0
+[DEBUG] LAYER_DW: 16x16x16 -> 16x16x16; layerid:14; maxpool:0; kernel:9; pad:4
+[DEBUG] LAYER_DW: 16x16x16 -> 16x16x16; layerid:15; maxpool:0; kernel:9; pad:4
+[DEBUG] LAYER_PW: 16x16x16 -> 16x16x64; layerid:14; last_layer:0
+[DEBUG] LAYER_PW: 16x16x64 -> 16x16x16; layerid:15; last_layer:0
+[DEBUG] LAYER_C3D: 16x16x16 -> 16x16x24; layerid:5; upsample:0; first:0; skip_con:0
+
+
+# Upsample 1
+[DEBUG] LAYER_C3D: 16x16x24 -> 32x32x16; layerid:6; upsample:1; first:0; skip_con:0
+# SkipFusion 1
+[DEBUG] LAYER_C3D: 32x32x16 -> 32x32x16; layerid:7; upsample:0; first:0; skip_con:1
+[DEBUG] LAYER_PW: 32x32x16 -> 32x32x64; layerid:16; last_layer:0
+[DEBUG] LAYER_PW: 32x32x64 -> 32x32x16; layerid:17; last_layer:0
+
+# Upsample 2
+[DEBUG] LAYER_C3D: 32x32x16 -> 64x64x16; layerid:8; upsample:1; first:0; skip_con:0
+# SkipFusion 2
+[DEBUG] LAYER_C3D: 64x64x16 -> 64x64x16; layerid:9; upsample:0; first:0; skip_con:1
+[DEBUG] LAYER_PW: 64x64x16 -> 64x64x64; layerid:18; last_layer:0
+[DEBUG] LAYER_PW: 64x64x64 -> 64x64x16; layerid:19; last_layer:0
+
+# Upsample 3
+[DEBUG] LAYER_C3D: 64x64x16 -> 128x128x8; layerid:10; upsample:1; first:0; skip_con:0
+# SkipFusion 3
+[DEBUG] LAYER_C3D: 128x128x8 -> 128x128x8; layerid:11; upsample:0; first:0; skip_con:1
+[DEBUG] LAYER_PW: 128x128x8 -> 128x128x32; layerid:20; last_layer:0
+[DEBUG] LAYER_PW: 128x128x32 -> 128x128x8; layerid:21; last_layer:0
+
+# Upsample 4
+[DEBUG] LAYER_C3D: 128x128x8 -> 256x256x8; layerid:12; upsample:1; first:0; skip_con:0
+# SkipFusion 4
+[DEBUG] LAYER_C3D: 256x256x8 -> 256x256x8; layerid:13; upsample:0; first:0; skip_con:1
+[DEBUG] LAYER_PW: 256x256x8 -> 256x256x32; layerid:22; last_layer:0
+[DEBUG] LAYER_PW: 256x256x32 -> 256x256x8; layerid:23; last_layer:0
+
+# Classifier
+[DEBUG] LAYER_PW: 256x256x8 -> 256x256x1; layerid:24; last_layer:1

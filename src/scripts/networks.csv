@@ -1,0 +1,23 @@
+model_name,arguments
+CMUNeXt,
+CMUNeXt-L,
+CMUNeXt-S,
+CMUNeXt-XXS,
+CMUNeXt-S-Kernel-3,
+CMUNeXt-Add-S,
+Mobile-CMUNeXt-Hardswish,
+Mobile-CMUNeXt-Nearest-Hardswish,
+Mobile-CMUNeXt-RELU,
+Mobile-CMUNeXt-RELU-BN-ACT,
+Mobile-CMUNeXt-Leaky-RELU,
+CFPNetM,
+UNeXt,
+UNeXt-S,
+UNet,
+UNet_V2,--batch_size 4
+AttentionUNet,--batch_size 4
+UNet++,--batch_size 4
+GIVTED-Net,
+LUCF-Net,
+ULite,
+TransUnet,--batch_size 4

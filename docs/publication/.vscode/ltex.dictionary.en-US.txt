@@ -1,7 +1,0 @@
-FPGAs
-FCNs
-TransUnet
-Swin-Unet
-Swinmm
-downsampling
-deconvolutional

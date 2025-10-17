@@ -1,1 +1,0 @@
-{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QField-Programmable Gate Arrays (FPGAs) offer a promising solution by providing programmable hardware-level acceleration suited for deep learning inference tasks.\\E$"}
