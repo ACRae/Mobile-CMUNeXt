@@ -110,6 +110,92 @@ Real-time Inference (ZU3EG MPSoC)
 - Xilinx Vivado 2022.1+ and Vitis HLS (for hardware)
 - Brevitas for quantization-aware training
 
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/ACRae/Mobile-CMUNeXt.git
+cd Mobile-CMUNeXt
+```
+
+### 2. Prepare Python Environment
+
+Create and activate a Python virtual environment:
+
+```bash
+python3 -m venv .env
+source .env/bin/activate
+```
+
+Install dependencies from `requirements.txt`:
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+The repository requires at minimum **Python 3.11**.
+
+---
+
+### 3. Prepare Datasets
+
+Organize your medical image dataset in a folder structure such as:
+
+```
+data/
+├── BUSI/
+├── ISIC2016/
+└── FIVES2022/
+```
+
+Each dataset should contain images and corresponding masks. Update paths in your training or inference scripts accordingly.
+
+---
+
+### 4. Train a Floating-Point Model
+
+To train the full-precision Mobile-CMUNeXt or CMUNeXt model:
+
+```bash
+python main.py \
+    --model Mobile-CMUNeXt-RELU \
+    --data_dir ./data \
+    --dataset_name ISIC2016 \
+    --img_ext .jpg \
+    --mask_ext .png
+```
+
+This runs training on the specified dataset. Replace `ISIC2016`, image extensions, and other parameters to match your dataset.([GitHub][1])
+
+---
+
+### 5. Train a Quantized Model
+
+The repository supports quantized variants. To train with quantization:
+
+```bash
+python main.py \
+    --model Mobile-CMUNeXt-Quant-RELU-BN-ACT \
+    --data_dir ./data \
+    --dataset_name FIVES2022 \
+    --act_bit_width 4 \
+    --weight_bit_width 4
+```
+
+Adjust `--act_bit_width` and `--weight_bit_width` for your target precision.
+
+---
+
+### 6. Export Quantized Weights and Scales for FPGA
+
+```bash
+python qextractor \
+    --model_dir <TRAINED_MODEL_DIR> 
+```
+
+
 ## Key Features
 
 - Lightweight architecture optimized for embedded deployment
