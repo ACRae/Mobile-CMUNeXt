@@ -50,7 +50,7 @@ Real-time Inference (ZU3EG MPSoC)
 │   └── xilinx/            # Xilinx/Vitis/Vivado notes and guides
 │
 ├── network/
-│   └── train/             # Training logs and results (per dataset)
+│   └── train/             # Training logs and checkpoints (per dataset)
 │
 ├── src/
 │   ├── python/            # Main Python source code
@@ -65,26 +65,24 @@ Real-time Inference (ZU3EG MPSoC)
 │   │   ├── quantized_images/ # Quantized image utilities
 │   │   ├── results/       # Results, exports, and notebooks
 │   │   └── utils/         # Losses, metrics, general utilities
-│   └── scripts/           # Dataset scripts, training automation, logs
-│
-│
-├── scripts/               # Top-level automation and benchmarking scripts
-│   ├── *.csv              # Experiment and network configuration tables
-│   ├── train.sh           # Training automation
-│   ├── dataset/           # Dataset download scripts
-│   ├── logs/              # Log files
-│   └── train/             # Training script wrappers
-│
-├── vitis/                 # FPGA implementation (Vitis HLS, app, packages)
-│   ├── Makefile
-│   ├── app/               # Vitis app configuration
-│   ├── hls/               # HLS accelerator cores (C/C++)
-│   ├── include/           # HLS headers
-│   └── packages/          # Vitis packages
-│
-├── vivado/                # Vivado FPGA project files and designs
-│   ├── mc-fives.xpr
-│   └── design/
+│   │
+│   ├── scripts/               # Top-level automation and benchmarking scripts
+│   │   ├── *.csv              # Experiment and network configuration tables
+│   │   ├── train.sh           # Training automation
+│   │   ├── dataset/           # Dataset download scripts
+│   │   ├── logs/              # Log files
+│   │   └── train/             # Training script wrappers
+│   │
+│   ├── vitis/             # FPGA implementation (Vitis HLS, app, packages)
+│   │   ├── Makefile
+│   │   ├── app/           # Vitis app configuration
+│   │   ├── hls/           # HLS accelerator cores (C/C++)
+│   │   ├── include/       # HLS headers
+│   │   └── packages/      # Vitis packages
+│   │
+│   └── vivado/            # Vivado FPGA project files and designs
+│       ├── mc-fives.xpr
+│       └── design/
 │
 ├── LICENSE
 ├── README.md
@@ -94,11 +92,10 @@ Real-time Inference (ZU3EG MPSoC)
 
 - `src/python/` — All core Python code for training, quantization, inference, and utilities
 - `src/scripts/` — Helper scripts for datasets, training, and automation
-- `vitis/` — Vitis HLS and app code for FPGA accelerator implementation
-- `vivado/` — Vivado project files for hardware deployment
+- `src/vitis/` — Vitis HLS and app code for FPGA accelerator implementation
+- `src/vivado/` — Vivado project files for hardware deployment
 - `docs/` — Documentation, notes, and thesis manuscript
 - `network/train/` — Training logs and results (organized by dataset)
-- `scripts/` — Top-level scripts, configs, and logs for experiments
 
 ## Quick Start
 
