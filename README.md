@@ -110,34 +110,6 @@ Real-time Inference (ZU3EG MPSoC)
 - Xilinx Vivado 2022.1+ and Vitis HLS (for hardware)
 - Brevitas for quantization-aware training
 
-### Training
-
-```bash
-cd training
-python train.py --config config/mobile_cmunext.yaml
-```
-
-### Quantization-Aware Training
-
-```bash
-cd quantization
-python qat_train.py --model mobile_cmunext --epochs 100
-```
-
-### Export for FPGA
-
-```bash
-cd export
-python export_weights.py --checkpoint model_qat.pth --output fpga_params/
-```
-
-### FPGA Synthesis
-
-```bash
-cd hardware
-vivado -mode batch -source scripts/build.tcl
-```
-
 ## Key Features
 
 - Lightweight architecture optimized for embedded deployment
