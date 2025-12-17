@@ -1,4 +1,4 @@
-# Mobile-CMUNeXt - Semantic Segmentation of Medical Images for Fast Diagnosis
+# Mobile-CMUNeXt: Semantic Segmentation of Medical Images for Fast Diagnosis
 
 Real-time semantic segmentation of medical images with FPGA acceleration.
 
