@@ -4,23 +4,6 @@ Real-time semantic segmentation of medical images with FPGA acceleration.
 
 This repository provides the complete software and hardware stack for real-time semantic segmentation of medical images, leveraging lightweight neural networks, quantization-aware training, and custom FPGA accelerators. It is the official implementation for the associated Master's thesis.
 
-## Thesis Information
-
-| Field | Details |
-|-------|---------|
-| **Title** | Semantic Segmentation of Medical Images for Fast Diagnosis |
-| **Author** | António Maria Ferreira de Oliveira Carvalho |
-| **Degree** | M.Sc. Computer Science and Engineering (*Engenharia Informática e de Computadores*) |
-| **Institution** | Instituto Superior de Engenharia de Lisboa (ISEL), Instituto Politécnico de Lisboa (IPL) |
-| **Supervisor** | Dr. Mário Pereira Véstias |
-| **Date** | December 2025 |
-
-## Publication
-
-This work has been published in:
-
-> **A. Carvalho, M. Véstias**, "Fast Semantic Segmentation of Medical Images," *Proceedings of the 9th International Young Engineers Forum on Electrical and Computer Engineering (YEF-ECE)*, Caparica/Lisbon, Portugal, 2025, pp. 56–61. DOI: 10.1109/YEF-ECE66503.2025.11117287
-
 ## System Overview
 
 Mobile-CMUNeXt implements a complete hardware–software co-design pipeline:
@@ -233,6 +216,24 @@ All experiments in the thesis can be reproduced:
 
 - See `docs/` for thesis, hardware/software notes, and configuration guides
 - Inline documentation and example usage in each module
+
+
+## Thesis Information
+
+| Field | Details |
+|-------|---------|
+| **Title** | Semantic Segmentation of Medical Images for Fast Diagnosis |
+| **Author** | António Maria Ferreira de Oliveira Carvalho |
+| **Degree** | M.Sc. Computer Science and Engineering (*Engenharia Informática e de Computadores*) |
+| **Institution** | Instituto Superior de Engenharia de Lisboa (ISEL), Instituto Politécnico de Lisboa (IPL) |
+| **Supervisor** | Dr. Mário Pereira Véstias |
+| **Date** | December 2025 |
+
+## Publication
+
+This work has been published in:
+
+> **A. Carvalho, M. Véstias**, "Fast Semantic Segmentation of Medical Images," *Proceedings of the 9th International Young Engineers Forum on Electrical and Computer Engineering (YEF-ECE)*, Caparica/Lisbon, Portugal, 2025, pp. 56–61. DOI: 10.1109/YEF-ECE66503.2025.11117287
 
 
 ## License & Citation
